@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dice SDM</string>
+    <string name="clique_no_botao_abaixo_para_jogar_o_dado">Clique no botão abaixo para jogar o dado</string>
+    <string name="ainda_nao_foi_lancado">Ainda não foi lançado</string>
+    <string name="a_face_sorteada_foi">A face sorteada foi:</string>
+    <string name="jogar">Jogar</string>
+</resources>
