@@ -3,6 +3,7 @@ package br.edu.ifsp.scl.sdm.dicesdm;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView resultadoImageView;
     private Spinner numDicesSpinner;
     private ImageView resultado2ImageView;
+    private EditText numFacesEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,21 +34,31 @@ public class MainActivity extends AppCompatActivity {
         resultadoImageView = findViewById(R.id.resultadoImageView);
         numDicesSpinner = findViewById(R.id.numDicesSpinner);
         resultado2ImageView = findViewById(R.id.resultado2imageView);
+        numFacesEditText = findViewById(R.id.numFacesEditText);
     }
 
     public void jogarDado(View view){
         if (view.getId() == R.id.jogarDadoButton) {
             int numDices = Integer.parseInt(numDicesSpinner.getSelectedItem().toString());
-            if (numDices == 2) {
-                resultado2ImageView.setVisibility(View.VISIBLE);
-            }
-            else{
+
+            int numFaces = Integer.parseInt(numFacesEditText.getText().toString());
+            if (numFaces > 6) {
+                resultadoImageView.setVisibility(View.GONE);
                 resultado2ImageView.setVisibility(View.GONE);
+            }
+            else {
+                resultadoImageView.setVisibility(View.VISIBLE);
+                if (numDices == 2) {
+                    resultado2ImageView.setVisibility(View.VISIBLE);
+                }
+                else{
+                    resultado2ImageView.setVisibility(View.GONE);
+                }
             }
 
             String resultadoText = "";
             for (int i = 1; i <= numDices; i++) {
-                int resultado = geradorRandomico.nextInt(6) + 1;
+                int resultado = geradorRandomico.nextInt( numFaces ) + 1;
 
                 resultadoText += resultado + " ";
 
@@ -69,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 6:
                         imageView.setImageResource(R.drawable.dice_6);
+                        break;
+                    default:
                         break;
                 }
             }
