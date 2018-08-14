@@ -29,4 +29,11 @@
         android:text="@string/ainda_nao_foi_lancado"
         android:textSize="18sp" />
 
+    <ImageView
+        android:id="@+id/resultadoImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/resultado"
+        app:srcCompat="@android:color/transparent" />
+
 </LinearLayout>
