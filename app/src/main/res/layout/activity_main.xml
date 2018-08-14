@@ -11,6 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
+        android:text="Selecione o número de dados"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/numDicesSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/numero_dados" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:text="@string/clique_no_botao_abaixo_para_jogar_o_dado"
         android:textSize="18sp" />
 
@@ -32,8 +45,16 @@
     <ImageView
         android:id="@+id/resultadoImageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="72dp"
         android:contentDescription="@string/resultado"
+        app:srcCompat="@android:color/transparent" />
+
+    <ImageView
+        android:id="@+id/resultado2imageView"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:contentDescription="@string/resultado"
+        android:visibility="gone"
         app:srcCompat="@android:color/transparent" />
 
 </LinearLayout>

@@ -5,4 +5,8 @@
     <string name="a_face_sorteada_foi">A face sorteada foi:</string>
     <string name="jogar">Jogar</string>
     <string name="resultado">resultado</string>
+    <string-array name="numero_dados">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>
