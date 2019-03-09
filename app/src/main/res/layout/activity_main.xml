@@ -65,7 +65,7 @@
         app:srcCompat="@android:color/transparent" />
 
     <ImageView
-        android:id="@+id/resultado2imageView"
+        android:id="@+id/resultado2ImageView"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:contentDescription="@string/resultado"
