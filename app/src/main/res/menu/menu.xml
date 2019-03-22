@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Compartilhar -->
+    <item android:id="@+id/compartilharMenuItem"
+        android:title="Compartilhar"
+        app:showAsAction="ifRoom"
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
+        android:icon="@drawable/icone_compartilhar"
+        />
+    <!-- Configurações -->
+    <item android:id="@+id/configuracoesMenuItem"
+        android:title="Configurações"
+        app:showAsAction="never"
+        android:icon="@drawable/icone_configuracoes"
+        />
+    <!-- Não é necessário ícone se showAsAction="never",
+    mas se mudar a opção para "ifRoom" pode ser usado -->
+</menu>

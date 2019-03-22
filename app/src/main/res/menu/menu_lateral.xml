@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Modo texto -->
+    <item android:id="@+id/modoTextoMenuItem"
+        android:title="Modo texto"
+        android:icon="@drawable/icone_modo_texto"
+        />
+    <!-- Modo gráfico -->
+    <item android:id="@+id/modoGraficoMenuItem"
+        android:title="Modo gráfico"
+        android:icon="@drawable/icone_modo_grafico"
+        />
+    <!-- Sair -->
+    <item android:id="@+id/sairMenuItem"
+        android:title="Sair"
+        android:icon="@drawable/icone_sair"
+        />
+</menu>

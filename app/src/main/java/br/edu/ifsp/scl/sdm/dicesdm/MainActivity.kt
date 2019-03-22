@@ -1,57 +1,114 @@
 package br.edu.ifsp.scl.sdm.dicesdm
 
+import android.content.Intent
+import android.content.Intent.ACTION_SEND
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.support.v4.view.GravityCompat
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.widget.ImageView
+import android.view.Menu
+import android.view.MenuItem
+import br.edu.ifsp.scl.sdm.dicesdm.ConfigSingleton.modos.MODO_GRAFICO
+import br.edu.ifsp.scl.sdm.dicesdm.ConfigSingleton.modos.MODO_TEXTO
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
+import kotlinx.android.synthetic.main.toolbar.*
+import org.jetbrains.anko.startActivity
+import android.support.v7.widget.ShareActionProvider
 
 
 class MainActivity: AppCompatActivity(){
 
-    val geradorRandomico: Random
+    var compartilharIntent: Intent = Intent(ACTION_SEND)
+
     init {
-        geradorRandomico = Random(System.currentTimeMillis())
+        compartilharIntent.type = "text/*"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = resources.getString(R.string.app_name)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val abreFechaToogle: ActionBarDrawerToggle =
+                ActionBarDrawerToggle(
+                        this,
+                        menuLateralDrawerLayout,
+                        toolbar,
+                        R.string.menu_aberto,
+                        R.string.menu_fechado
+                )
+        menuLateralDrawerLayout.addDrawerListener(abreFechaToogle)
+
+        abreFechaToogle.syncState()
+
+        menuNavigationView.setNavigationItemSelectedListener { onNavigationItemSelected(it) }
+
+        substituiFragment(MODO_GRAFICO)
     }
 
-    fun jogarDado(view: View){
-        if (view == jogarDadoButton){
-            val numDices: Int = numDicesSpinner.selectedItem.toString().toInt()
-            val numFaces = numFacesEditText.text.toString().toInt()
-
-            if (numFaces > 6) {
-                resultadoImageView.visibility = View.GONE
-                resultado2ImageView.visibility = View.GONE
+    fun onNavigationItemSelected(item: MenuItem): Boolean{
+        var retorno: Boolean = false
+        when(item.itemId){
+            R.id.modoTextoMenuItem -> {
+                substituiFragment(MODO_TEXTO)
+                retorno = true
             }
-            else {
-                resultadoImageView.visibility = View.VISIBLE
-                resultado2ImageView.visibility = if (numDices == 2) View.VISIBLE else View.GONE
+            R.id.modoGraficoMenuItem -> {
+                substituiFragment(MODO_GRAFICO)
+                retorno = true
             }
-
-            var resultadoText = ""
-
-            for (i in 1..numDices){
-                val resultado = geradorRandomico.nextInt( numFaces ) +1
-
-                resultadoText = "$resultadoText $resultado"
-
-                val imageView: ImageView = if (i==1) resultadoImageView else resultado2ImageView
-                val resourceName: String = "dice_${resultado}"
-                imageView.setImageResource(
-                        resources.getIdentifier(resourceName, "drawable", packageName)
-                )
-
+            R.id.sairMenuItem -> {
+                finish()
+                retorno = true
             }
-
-            resultadoTextView.text = "A face sorteada foi: $resultadoText"
         }
+        menuLateralDrawerLayout.closeDrawer(GravityCompat.START)
+
+        return retorno
+    }
+
+    private fun substituiFragment(modo: String){
+
+        val modoJogoFragment = if(modo == MODO_GRAFICO) ModoGraficoFragment() else ModoTextoFragment()
+
+        // Transaction para substituição de fragment
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentJogoFl,  modoJogoFragment)
+        fragmentTransaction.commit()
+
+    }
+
+    override fun onBackPressed() {
+        if (menuLateralDrawerLayout.isDrawerOpen(GravityCompat.START)){
+            menuLateralDrawerLayout.closeDrawer(GravityCompat.START)
+        }
+        else{
+            super.onBackPressed()
+        }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+
+        val compartilharMenuItem: MenuItem? = menu?.findItem(R.id.compartilharMenuItem)
+        val compartilharSnap: ShareActionProvider = MenuItemCompat.getActionProvider(compartilharMenuItem) as ShareActionProvider
+        compartilharSnap.setShareIntent(compartilharIntent)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.configuracoesMenuItem ->
+                //startActivity(Intent(this, ConfigActivity::class.java))
+                startActivity<ConfigActivity>()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

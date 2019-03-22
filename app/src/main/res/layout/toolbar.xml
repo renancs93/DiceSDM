@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:minHeight="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    app:titleTextColor="@android:color/white">
+    <!-- Usa ?attr/ (o mesmo que ?android:attr/) que aponta
+    para android.R.attr com valores padrões de ATRIBUTOS DE
+    ESTILO da API. -->
+</android.support.v7.widget.Toolbar>
